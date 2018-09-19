@@ -1,0 +1,6 @@
+[package]
+name = "MergeSortIterative"
+version = "0.1.0"
+authors = ["Aren Villanueva <arenvillanueva@yomogi-soft.com>"]
+
+[dependencies]
