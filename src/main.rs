@@ -1,4 +1,5 @@
 use std::io;
+use std::cmp::Ordering;
 
 fn main() {
     println!("Enter in some random numbers");
@@ -79,14 +80,21 @@ fn merge(mut vec: Vec<i32>, left: usize, mid: usize, right: usize) -> Vec<i32> {
     
     // Do the actual comparison sort on the provided slice
     while left_cursor < (mid - left + 1) && right_cursor < (right - mid) {
-        if left_parts[left_cursor] <= right_parts[right_cursor] {
-            vec[insert_cursor] = left_parts[left_cursor];
-            left_cursor += 1;
-        } else {
-            vec[insert_cursor] = right_parts[right_cursor];
-            right_cursor += 1;
-        }
-        
+        match left_parts[left_cursor].cmp(&right_parts[right_cursor]) {
+            Ordering::Less => {
+                vec[insert_cursor] = left_parts[left_cursor];
+                left_cursor += 1;
+            },
+            Ordering::Greater => {
+                vec[insert_cursor] = right_parts[right_cursor];
+                right_cursor += 1;
+            },
+            Ordering::Equal => {
+                vec[insert_cursor] = left_parts[left_cursor];
+                left_cursor += 1;
+            },
+        };
+
         insert_cursor += 1;
     }
     
